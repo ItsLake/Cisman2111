@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="bin">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/apache-tomcat-9.0.17-windows-x64.zip!/apache-tomcat-9.0.17/bin" />
+      <root url="jar://$USER_HOME$/Downloads/apache-tomcat-9.0.17-windows-x64.zip!/apache-tomcat-9.0.17" />
+      <root url="jar://$USER_HOME$/Downloads/apache-tomcat-9.0.17-windows-x64.zip!/apache-tomcat-9.0.17/webapps" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Downloads/apache-tomcat-9.0.17-windows-x64.zip!/apache-tomcat-9.0.17/webapps/docs/appdev/sample/src" />
+      <root url="jar://$USER_HOME$/Downloads/apache-tomcat-9.0.17-windows-x64.zip!/apache-tomcat-9.0.17/webapps/examples/WEB-INF/classes" />
+      <root url="jar://$USER_HOME$/Downloads/apache-tomcat-9.0.17-windows-x64.zip!/apache-tomcat-9.0.17/webapps/examples/WEB-INF/jsp/applet" />
+      <root url="jar://$USER_HOME$/Downloads/apache-tomcat-9.0.17-windows-x64.zip!/apache-tomcat-9.0.17/webapps/examples/jsp/plugin/applet" />
+    </SOURCES>
+  </library>
+</component>
