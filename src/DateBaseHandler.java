@@ -94,4 +94,21 @@ public class DateBaseHandler extends Config {
         return null;
     }
 
+    public ResultSet seart(String UserName) {
+        ResultSet resultSet = null;
+
+        String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " + Const.USERNAME + " like \"" + UserName + "\"";
+        try {
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(select);
+            resultSet = preparedStatement.executeQuery(select);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+
+        }
+        return resultSet;
+    }
+
 }
