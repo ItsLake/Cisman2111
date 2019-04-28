@@ -43,7 +43,7 @@ public class DateBaseHandler extends Config {
             e.printStackTrace();
         }
         if(coun >=1){
-            Contact.SaveMes.setVisible(true);
+            ContactV2.SaveMes.setVisible(true);
         }else {
 
         }

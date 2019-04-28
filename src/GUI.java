@@ -51,7 +51,7 @@ public class GUI extends JFrame {
         AddCont.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Contact contact = new Contact();
+                ContactV2 contact = new ContactV2();
                 contact.setVisible(true);
             }
         });
