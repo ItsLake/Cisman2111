@@ -104,7 +104,6 @@ public class ContactV2 extends JFrame {
                 "Торакоцентез"
         };
 
-
         TrainingMain = new JComboBox(TrainingMainText);
         TrainingMain.setBounds(260, 20, 325, 25);
         One.add(TrainingMain);
