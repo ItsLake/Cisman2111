@@ -1,5 +1,3 @@
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,20 +8,19 @@ public class ContactV2 extends JFrame {
     private JTabbedPane vkladki;
     private JPanel One;
     private JPanel Two;
-    private JPanel Three;
 
     private JLabel TextName;
     private JTextField Name;
 
     private JLabel TextSurName;
     private JTextField SurName;
-    //Отчество
+
     private JLabel TextPatronymic;
     private JTextField Partronymic;
-    //Кафедра
+
     private JLabel TextPulpit;
     private JTextField Pulpit;
-    //Фах
+
     private JLabel TextProfession;
     private JTextField Profession;
 
@@ -38,13 +35,8 @@ public class ContactV2 extends JFrame {
     private JLabel TextPrepod;
     private JTextField Prepod;
 
-    private JLabel TextKyrs;
-    private JTextField Kyrs;
-
     static JLabel SaveMes;
     static JLabel ErrorMes;
-
-    private JLabel Metod;
 
     private JButton Back;
 
@@ -59,7 +51,6 @@ public class ContactV2 extends JFrame {
     private JComboBox Pipole;
 
     public ContactV2() {
-
         super("Name");
         this.setBounds(50, 50, 600, 420);
 
@@ -71,9 +62,9 @@ public class ContactV2 extends JFrame {
         Two = new JPanel();
         Two.setLayout(null);
 
-
         vkladki.add("Заняття", One);
         vkladki.add("Тренінг", Two);
+
         String[] NamePipol = {
                 "Інтерн",
                 "Слухач",
@@ -97,12 +88,10 @@ public class ContactV2 extends JFrame {
             }
         });
 
-
         NameTraining = new JLabel("Тренінг");
         NameTraining.setFont(new Font("serif", Font.PLAIN, 19));
         NameTraining.setBounds(150, 20, 110, 20);
         One.add(NameTraining);
-
 
         String TrainingMainText[] = {
                 "Серцево-легенева реанімація",
