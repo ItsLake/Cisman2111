@@ -97,7 +97,7 @@ public class DateBaseHandler extends Config {
     public ResultSet seart(String UserName) {
         ResultSet resultSet = null;
 
-        String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " + Const.USERNAME + " like \"" + UserName + "\"";
+        String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " + Const.USERNAME + " like " + "'"+ UserName +"%"+"'";
         try {
             PreparedStatement preparedStatement = getDbConnection().prepareStatement(select);
             resultSet = preparedStatement.executeQuery(select);
