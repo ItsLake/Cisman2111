@@ -53,7 +53,7 @@ public class ContactV2 extends JFrame {
     DateBaseHandler dateBaseHandler = new DateBaseHandler();
     private static String namee ;
     private static String getItem [] = new String[24];
-    int coun = 0;
+    int coun ;
 
 
     public ContactV2() {
@@ -96,10 +96,10 @@ public class ContactV2 extends JFrame {
                super.mouseClicked(e);
                SurName.setText(TEst.getSelectedValue());
                ResultSet res = dateBaseHandler.seart(SurName.getText());
+               coun = 0;
                try {
                    while (res.next()) {
                        coun++;
-
                         Contactt.setText(res.getString(Const.CONTACTT));
                         Partronymic.setText(res.getString(Const.PARTRONYMIC));
                         Profession.setText(res.getString(Const.PROFESSION));
@@ -144,7 +144,11 @@ public class ContactV2 extends JFrame {
             @Override
             public void keyReleased(KeyEvent e) {
                 super.keyReleased(e);
+                if(coun >0){
+                    defaultListModel.removeAllElements();
+                }
                 ResultSet res = dateBaseHandler.seart(SurName.getText());
+                coun = 0;
                 try {
                     while (res.next()) {
                         coun++;

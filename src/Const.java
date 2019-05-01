@@ -12,4 +12,5 @@ public class Const {
     public static final String KYRS = "Kyrs";
     public static final String COMMENT = "Comments";
     public static final String GOPARI = "GoPari";
+  //  public static final String DATE = "Date";
 }
