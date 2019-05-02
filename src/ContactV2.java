@@ -3,8 +3,15 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ContactV2 extends JFrame {
+
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    Date date = new Date();
+
     private JTabbedPane vkladki = new JTabbedPane();
 
     private JPanel One = new JPanel();
@@ -18,6 +25,7 @@ public class ContactV2 extends JFrame {
     private JTextField Profession = new JTextField();
     private JTextField Contactt = new JTextField();
     private JTextField Prepod = new JTextField();
+    private JTextField EditDate = new JTextField();
     JTextField ALL [] = {Name,SurName,Partronymic,Pulpit,Profession,Contactt,Prepod};
 
     private JLabel TextName = new JLabel("Ім'я");
@@ -32,6 +40,7 @@ public class ContactV2 extends JFrame {
     private JLabel ParaText = new JLabel("Пара");
     static JLabel SaveMes = new JLabel("SAVE");
     static JLabel ErrorMes = new JLabel("NO DATE");
+    static JLabel TextEditDate = new JLabel("Змінити дату");
 
     private JComboBox Training = new JComboBox();
     private JComboBox Studant = new JComboBox();
@@ -43,6 +52,8 @@ public class ContactV2 extends JFrame {
     private JButton Back = new JButton("Назад");
     private JButton Save = new JButton("Зберегти");
 
+    private JCheckBox ok = new JCheckBox();
+
     private JList<String> ListName = new JList<>();
     private JScrollPane jScrollPane = new JScrollPane();
 
@@ -50,13 +61,15 @@ public class ContactV2 extends JFrame {
     DateBaseHandler dateBaseHandler = new DateBaseHandler();
     private static String namee;
     private static String getItem[] = new String[24];
-    int fer = 0;
     int coun;
     private  String hi [];
     private static String getPidor[];
+    private String time;
+    String xz;
 
     public ContactV2() {
         super("Name");
+       // this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setBounds(50, 50, 620, 420);
         getContentPane().add(vkladki);
 
@@ -79,7 +92,9 @@ public class ContactV2 extends JFrame {
         JText(Contactt, 125, 175, 150, 25);
         JText(Profession, 435, 105, 150, 25);
         JText(Partronymic, 125, 140, 150, 25);
+        JText(EditDate,435,240,150,25);
 
+        BoundsFont(TextEditDate,16,330,240,110,20);
         BoundsFont(TextName, 16, 15, 105, 70, 20);
         BoundsFont(SaveMes, 16, 460, 300, 250, 25);
         BoundsFont(TextPulpit, 16, 300, 70, 80, 20);
@@ -96,6 +111,8 @@ public class ContactV2 extends JFrame {
         JBut(Save, 16, 300, 300, 150, 30);
         JBut(Back, 16, 150, 300, 150, 30);
 
+        JBox(ok,280,240,25,25);
+
         JCom(Studant, ite, 435, 175, 50, 25);
         JCom(Training, item, 485, 175, 100, 25);
         JCom(Para, NamberPara, 125, 240, 90, 25);
@@ -105,6 +122,8 @@ public class ContactV2 extends JFrame {
         Mess(SaveMes, Color.GREEN, false);
         Mess(ErrorMes, Color.RED, false);
 
+        EditDate.setEditable(false);
+        EditDate.setFont(new Font("serif", Font.PLAIN, 16));
 
         SurName.addKeyListener(new KeyAdapter() {
             @Override
@@ -173,6 +192,8 @@ public class ContactV2 extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                GUI gui = new GUI();
+                gui.setVisible(true);
             }
         });
         Save.addActionListener(new ActionListener() {
@@ -182,6 +203,7 @@ public class ContactV2 extends JFrame {
                 Scan(ALL);
             }
         });
+        Time();
     }
     public void BoundsFont(JLabel name, int font, int x, int y, int w, int h) {
         name.setBounds(x, y, w, h);
@@ -247,7 +269,7 @@ public class ContactV2 extends JFrame {
             }
         }
         if (t == name.length){
-            dateBaseHandler.singUpUser(getPidor);
+            dateBaseHandler.singUpUser(getPidor,fin());
             SaveMes.setVisible(true);
             for (int s = 0; s < name.length; s++){
                 name[s].setText(null);
@@ -299,7 +321,73 @@ public class ContactV2 extends JFrame {
             }
         }
     }
+    public void Time(){
+        EditDate.setText(dateFormat.format(date));
+        ok.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == 1){
+                    EditDate.setEditable(true);
+                    EditDate.setText("");
+                    /*EditDate.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            super.mouseClicked(e);
+
+
+                        }
+                    });*/
+                    Kye();
+                }else {
+                         time = dateFormat.format(date);
+                         EditDate.setText(time);
+                         EditDate.setEditable(false);
+                }
+            }
+        });
+    }
+    public void JBox(JCheckBox name, int x, int y, int w, int h) {
+        name.setBounds(x, y, w, h);
+        One.add(name);
+    }
+    public void Kye(){
+        EditDate.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyReleased(e);
+                    if (EditDate.getText().length() == 2){
+                        xz = EditDate.getText() + "/";
+                        EditDate.setText(xz);
+                        xz = null;
+                    }
+                    if (EditDate.getText().length() == 5) {
+                        xz = EditDate.getText() + "/";
+                        EditDate.setText(xz);
+                        xz = null;
+                    }
+                    if (EditDate.getText().length() == 10) {
+                        xz = EditDate.getText() + " ";
+                        EditDate.setText(xz);
+                        xz = null;
+                    }
+                    if (EditDate.getText().length() == 13) {
+                        xz = EditDate.getText() + ":";
+                        EditDate.setText(xz);
+                        xz = null;
+                    }
+                    if (EditDate.getText().length() == 16) {
+                        xz = EditDate.getText() + ":";
+                        EditDate.setText(xz);
+                    }
+                    if (EditDate.getText().length() == 19){
+                        xz = EditDate.getText();
+                    }
+            }
+        });
+    }
+    public String fin(){
+        String oreo;
+        oreo = xz;
+        return oreo;
+    }
 }
-
-
-

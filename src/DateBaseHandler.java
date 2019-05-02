@@ -17,15 +17,17 @@ public class DateBaseHandler extends Config {
         dbConnection = DriverManager.getConnection(connectionString, dbUser,dbPass);
         return dbConnection;
     }
-    public void singUpUser(String name []){
+    public void singUpUser(String name [], String time){
         String insert = "INSERT INTO " + Const.USER_TABLE + "(" + Const.NAME + "," + Const.USERNAME + "," + Const.PARTRONYMIC +
                 "," + Const.PULPIT + "," + Const.PROFESSION + "," + Const.CONTACTT + "," + Const.PREPOD + "," +
-                Const.TRAINING + "," + Const.STUDANT + "," + Const.TRAININGMAIN + "," + Const.PARA +  ")" + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+                Const.TRAINING + "," + Const.STUDANT + "," + Const.TRAININGMAIN + "," + Const.PARA + "," + Const.DATE +
+                ")" + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         int coun = 0;
         try {
             PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
             for (int s = 0; s < name.length; s++){
                 preparedStatement.setString(s+1,name[s]);
+                preparedStatement.setString(name.length+1,time);
             }
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

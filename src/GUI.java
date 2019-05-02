@@ -38,6 +38,7 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Text text = new Text();
                 text.setVisible(true);
+                dispose();
             }
         });
         windows3.addActionListener(new ActionListener() {
@@ -45,6 +46,7 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 CommentsUser commentsUser = new CommentsUser();
                 commentsUser.setVisible(true);
+                dispose();
             }
         });
 
@@ -53,6 +55,7 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 ContactV2 contact = new ContactV2();
                 contact.setVisible(true);
+                dispose();
             }
         });
 
