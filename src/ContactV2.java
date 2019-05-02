@@ -38,6 +38,7 @@ public class ContactV2 extends JFrame {
     private JComboBox TrainingMain = new JComboBox();
     private JComboBox Para = new JComboBox();
     private JComboBox PeopleList = new JComboBox();
+    JComboBox AllCom [] ={Training,Studant,TrainingMain,Para};
 
     private JButton Back = new JButton("Назад");
     private JButton Save = new JButton("Зберегти");
@@ -49,7 +50,10 @@ public class ContactV2 extends JFrame {
     DateBaseHandler dateBaseHandler = new DateBaseHandler();
     private static String namee;
     private static String getItem[] = new String[24];
+    int fer = 0;
     int coun;
+    private  String hi [];
+    private static String getPidor[];
 
     public ContactV2() {
         super("Name");
@@ -100,6 +104,7 @@ public class ContactV2 extends JFrame {
 
         Mess(SaveMes, Color.GREEN, false);
         Mess(ErrorMes, Color.RED, false);
+
 
         SurName.addKeyListener(new KeyAdapter() {
             @Override
@@ -152,6 +157,11 @@ public class ContactV2 extends JFrame {
                         Profession.setText(res.getString(Const.PROFESSION));
                         Pulpit.setText(res.getString(Const.PULPIT));
                         Name.setText(res.getString(Const.NAME));
+                        Prepod.setText(res.getString(Const.PREPOD));
+                        if (res.getString(Const.TRAINING) == String.valueOf(Training.getSelectedItem())){
+                            Training.setSelectedIndex(0);
+                        }else Training.setSelectedIndex(1);
+                        Jcombo(res,Studant);
                     }
                 } catch (SQLException a) {
                     a.printStackTrace();
@@ -168,7 +178,8 @@ public class ContactV2 extends JFrame {
         Save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    Scan(ALL);
+                getPidor = Date(ALL,AllCom);
+                Scan(ALL);
             }
         });
     }
@@ -230,15 +241,17 @@ public class ContactV2 extends JFrame {
         for (int s = 0; s < name.length; s++){
             if (name[s].getText().length() < 4){
                 name[s].setBackground(Color.RED);
-            }else {
-                t++;
+            }else { t++; }
+            if (name[s].getText().length() > 3){
+                name[s].setBackground(Color.GREEN);
             }
         }
         if (t == name.length){
-            //dateBaseHandler.singUpUser(Name.getText(), SurName.getText(), Partronymic.getText(), Pulpit.getText(), Profession.getText(), Contactt.getText(), "1");
+            dateBaseHandler.singUpUser(getPidor);
             SaveMes.setVisible(true);
             for (int s = 0; s < name.length; s++){
                 name[s].setText(null);
+                name[s].setBackground(Color.WHITE);
             }
         }else {
             ErrorMes.setVisible(true);
@@ -256,6 +269,37 @@ public class ContactV2 extends JFrame {
                     name[finalY].setBackground(Color.WHITE);
                 }
             });
+            name[finalY].addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyReleased(KeyEvent e) {
+                    super.keyReleased(e);
+                        if (name[finalY].getText().length() > 3) {
+                            name[finalY].setBackground(Color.GREEN);
+                        }
+                }
+            });
+        }
+    }
+    public String[] Date (JTextField name [], JComboBox name1 []){
+        String hi [] = new String[name.length+name1.length];
+        for (int n = 0; n < name.length; n++){
+            hi[n] = name[n].getText();
+        }
+        int t = 0;
+        for (int s = name.length; s < name1.length + name.length; s++){
+            hi[s] = String.valueOf(name1[t].getSelectedItem());
+            t++;
+        }
+        return hi;
+    }
+    public void Jcombo(ResultSet resultSet,JComboBox name) throws SQLException {
+        for (int s = 0; s <name.getItemCount();s++){
+            if (String.valueOf(name.getItemAt(s)).equals(resultSet.getString(Const.STUDANT))) {
+                name.setSelectedIndex(s);
+            }
         }
     }
 }
+
+
+
