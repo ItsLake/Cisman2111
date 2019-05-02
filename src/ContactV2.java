@@ -235,8 +235,11 @@ public class ContactV2 extends JFrame {
             }
         }
         if (t == name.length){
-            dateBaseHandler.singUpUser(Name.getText(), SurName.getText(), Partronymic.getText(), Pulpit.getText(), Profession.getText(), Contactt.getText(), "1");
+            //dateBaseHandler.singUpUser(Name.getText(), SurName.getText(), Partronymic.getText(), Pulpit.getText(), Profession.getText(), Contactt.getText(), "1");
             SaveMes.setVisible(true);
+            for (int s = 0; s < name.length; s++){
+                name[s].setText(null);
+            }
         }else {
             ErrorMes.setVisible(true);
         }
