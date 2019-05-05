@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class ContactV2 extends JFrame {
 
-    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    DateFormat dateFormat = new SimpleDateFormat("dd.MM.YYYY HH:MM");
     Date date = new Date();
 
     private JTabbedPane vkladki = new JTabbedPane();
@@ -25,7 +25,7 @@ public class ContactV2 extends JFrame {
     private JTextField Profession = new JTextField();
     private JTextField Contactt = new JTextField();
     private JTextField Prepod = new JTextField();
-    private JTextField EditDate = new JTextField();
+    private JTextField Date = new JTextField();
     JTextField ALL [] = {Name,SurName,Partronymic,Pulpit,Profession,Contactt,Prepod};
 
     private JLabel TextName = new JLabel("Ім'я");
@@ -65,7 +65,14 @@ public class ContactV2 extends JFrame {
     private  String hi [];
     private static String getPidor[];
     private String time;
-    String xz;
+    private String xz;
+    String finDate;
+    String resolt [] = new  String[10];
+    String ter [] = new String[10];
+    String textDate;
+    int keepActionCheckBox;
+    private  String f [] = new String[24];
+    private String oreo;
 
     public ContactV2() {
         super("Name");
@@ -92,7 +99,7 @@ public class ContactV2 extends JFrame {
         JText(Contactt, 125, 175, 150, 25);
         JText(Profession, 435, 105, 150, 25);
         JText(Partronymic, 125, 140, 150, 25);
-        JText(EditDate,435,240,150,25);
+        JText(Date,435,240,150,25);
 
         BoundsFont(TextEditDate,16,330,240,110,20);
         BoundsFont(TextName, 16, 15, 105, 70, 20);
@@ -122,8 +129,8 @@ public class ContactV2 extends JFrame {
         Mess(SaveMes, Color.GREEN, false);
         Mess(ErrorMes, Color.RED, false);
 
-        EditDate.setEditable(false);
-        EditDate.setFont(new Font("serif", Font.PLAIN, 16));
+        Date.setEditable(false);
+        Date.setFont(new Font("serif", Font.PLAIN, 16));
 
         SurName.addKeyListener(new KeyAdapter() {
             @Override
@@ -131,20 +138,25 @@ public class ContactV2 extends JFrame {
                 super.keyReleased(e);
                 if (coun > 0) {
                     defaultListModel.removeAllElements();
+                    getItem = new String[getItem.length];
                 }
                 ResultSet res = dateBaseHandler.seart(SurName.getText());
+                ResultSet resultSet = dateBaseHandler.getUser(Const.DATE,Date.getText());
                 coun = 0;
                 try {
                     while (res.next()) {
                         coun++;
                         SaveMes.setVisible(false);
                         namee = res.getString(Const.USERNAME);
-                        defaultListModel.addElement(namee);
                         getItem[coun] = namee;
+                        f[coun] = resultSet.getString(Const.DATE);
                     }
                 } catch (SQLException a) {
                     a.printStackTrace();
                 }
+                searts();
+
+
                 if (SurName.getText().length() < 1 || defaultListModel.getSize() < 1) {
                     search.setVisible(false);
                     defaultListModel.removeAllElements();
@@ -322,26 +334,19 @@ public class ContactV2 extends JFrame {
         }
     }
     public void Time(){
-        EditDate.setText(dateFormat.format(date));
+        Date.setText(dateFormat.format(date));
         ok.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == 1){
-                    EditDate.setEditable(true);
-                    EditDate.setText("");
-                    /*EditDate.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                            super.mouseClicked(e);
-
-
-                        }
-                    });*/
+                    Date.setEditable(true);
+                    Date.setText("");
+                    keepActionCheckBox = 1;
                     Kye();
                 }else {
                          time = dateFormat.format(date);
-                         EditDate.setText(time);
-                         EditDate.setEditable(false);
+                         Date.setText(time);
+                         Date.setEditable(false);
                 }
             }
         });
@@ -351,43 +356,89 @@ public class ContactV2 extends JFrame {
         One.add(name);
     }
     public void Kye(){
-        EditDate.addKeyListener(new KeyAdapter() {
+        Date.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 super.keyReleased(e);
-                    if (EditDate.getText().length() == 2){
-                        xz = EditDate.getText() + "/";
-                        EditDate.setText(xz);
+                    if (Date.getText().length() == 2){
+                        xz = Date.getText() + ".";
+                        Date.setText(xz);
                         xz = null;
                     }
-                    if (EditDate.getText().length() == 5) {
-                        xz = EditDate.getText() + "/";
-                        EditDate.setText(xz);
+                    if (Date.getText().length() == 5) {
+                        xz = Date.getText() + ".";
+                        Date.setText(xz);
                         xz = null;
                     }
-                    if (EditDate.getText().length() == 10) {
-                        xz = EditDate.getText() + " ";
-                        EditDate.setText(xz);
+                    if (Date.getText().length() == 10) {
+                        xz = Date.getText() + " ";
+                        Date.setText(xz);
                         xz = null;
                     }
-                    if (EditDate.getText().length() == 13) {
-                        xz = EditDate.getText() + ":";
-                        EditDate.setText(xz);
+                    if (Date.getText().length() == 13) {
+                        xz = Date.getText() + ":";
+                        Date.setText(xz);
                         xz = null;
                     }
-                    if (EditDate.getText().length() == 16) {
-                        xz = EditDate.getText() + ":";
-                        EditDate.setText(xz);
-                    }
-                    if (EditDate.getText().length() == 19){
-                        xz = EditDate.getText();
+                    if (Date.getText().length() == 16){
+                        xz = Date.getText();
                     }
             }
         });
     }
     public String fin(){
-        String oreo;
-        oreo = xz;
+                if (keepActionCheckBox == 1){
+                    oreo = xz;
+                }else {
+                    oreo = dateFormat.format(date);
+                }
         return oreo;
+    }
+    public void searts(){
+        int t = 0;
+        int k = 0;
+        String re[] = new String [getItem.length];
+
+        for (int s = 0; s < getItem.length; s++) {
+            int nElems = 0;
+            if (getItem[s] == null) {
+                k++;
+                for (int v = s; v < nElems - 1; v++)
+                    f[v] = f[v + 1];
+                nElems--;
+            } else {
+                re[t] = getItem[s];
+                t++;
+            }
+        }
+        System.out.println(k);
+        String re1[] = new String [getItem.length - k ];
+        for (int r = 0; r < re1.length ; r++){
+            re1 [r] = re[r];
+        }
+        int f = 0;
+        int y = 0;
+        int s = 1;
+        int i = 1;
+        int l = 0;
+        for (int q = 0; q < re1.length; q++) {
+            for (i = i +l; i < re1.length; i++) {
+                if (re1[f].equals(re1[i ])){
+
+                }else {
+                    y++;
+                    System.out.println("good");
+                }
+            }
+            System.out.println("f === " + f);
+            if (y == re1.length - s){
+                defaultListModel.addElement(re1[f]);
+                y = 0;
+            }
+            f++;
+            l++;
+            i=1;
+            s++;
+        }
     }
 }

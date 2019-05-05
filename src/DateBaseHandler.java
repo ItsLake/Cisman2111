@@ -41,10 +41,10 @@ public class DateBaseHandler extends Config {
 
         }
     }
-    public ResultSet getUser( String UserName){
+    public ResultSet getUser(String MainName, String name){
         ResultSet resultSet = null;
 
-        String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " + Const.USERNAME + " = " + "'" + UserName + "'";
+        String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " + MainName + " = " + "'" + name + "'";
         try {
             PreparedStatement preparedStatement = getDbConnection().prepareStatement(select);
             resultSet = preparedStatement.executeQuery(select);

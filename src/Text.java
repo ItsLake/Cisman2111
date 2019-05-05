@@ -59,7 +59,7 @@ public class Text extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                ResultSet res = dateBaseHandler.getUser(Name.getText());
+                ResultSet res = dateBaseHandler.getUser(Const.NAME, Name.getText());
 
                 int coun = 0;
 

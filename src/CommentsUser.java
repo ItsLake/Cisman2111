@@ -65,10 +65,11 @@ public class CommentsUser extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                ResultSet res = dateBaseHandler.getUser(UserName.getText());
+                ResultSet res = dateBaseHandler.getUser(Const.USERNAME, UserName.getText());
 
                 int coun = 0;
                 String mer = "";
+                System.out.println(res);
 
 
                 try {
