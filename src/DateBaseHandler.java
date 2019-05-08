@@ -35,11 +35,6 @@ public class DateBaseHandler extends Config {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        if(coun >=1){
-            ContactV2.SaveMes.setVisible(true);
-        }else {
-
-        }
     }
     public ResultSet getUser(String MainName, String name){
         ResultSet resultSet = null;
@@ -98,9 +93,7 @@ public class DateBaseHandler extends Config {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-
         }
         return resultSet;
     }
-
 }
