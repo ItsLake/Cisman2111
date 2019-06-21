@@ -82,7 +82,6 @@ public class CommentsUser extends JFrame {
                         String meth = res.getString(Const.GOPARI);
                         methFin = meth + " " + Dat;
                         fin = srt + " " + Dat + " "+ Com;
-                        System.out.println(Com);
 
                     }
                 }catch (SQLException a){
@@ -91,10 +90,11 @@ public class CommentsUser extends JFrame {
                 if(coun >=1){
                     if(Com.length() > mer.length()) {
                         ResultSet der = dateBaseHandler.updateUser(fin, UserName.getText());
-                        System.out.println("work");
                     }
                     ResultSet test = dateBaseHandler.updateDate(methFin, UserName.getText());
                     setVisible(false);
+                   // MainPanel mainPanel = new MainPanel();
+                    //mainPanel.setVisible(true);
                 }else {
                     Error.setVisible(true);
                 }
